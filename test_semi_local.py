@@ -38,7 +38,6 @@ if __name__ == '__main__':
             if len(simplex) == 2:
                 edges.append(simplex_list)
             elif len(simplex) == 3:  # two-simplex
-                print(simplex_list)
                 two_simplices.append(simplex_list)
 
         return edges, two_simplices, filtration_dict
@@ -60,15 +59,24 @@ if __name__ == '__main__':
                   0.5,  # overlapping degree(0-2)
                   True
                   )
-    print(dist)
-    print(a.cover())
+    print("rips filtration:",dist)
+    print("cover:", a.cover())
 
     semi_blowup = SemiBlowupComplex(a.cover(), dist)
     semi_blowup.compute_persistence(verbose=True, show_diag = False)
     dgms = semi_blowup.dgms
-    print(semi_blowup.dgms)
+    print("dgms:",semi_blowup.dgms)
 
     fig, ax = plt.subplots(ncols=1, figsize=(10, 10))
     ax.scatter(testdata[:, 0], testdata[:, 1])
     plt.show()
     #plt.savefig('figures/test_semi/four_points.png')
+
+'''
+Output:
+{(0,): 0.0, (1,): 0.0, (2,): 0.0, (0, 2): 2.0, (1, 2): 2.0, (0, 1): 2.83, (0, 1, 2): 2.83}
+[[[0], [1], [2], [0, 1], [0, 2], [1, 2], [0, 1, 2]]]
+number of bars 3
+number of bars 1
+{0: [[0.0, 2.83, '0'], [0.0, 2.0, '0'], [0.0, inf, '0']], 1: [[2.0, 2.83, '0']]}
+'''
