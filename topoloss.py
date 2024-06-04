@@ -76,7 +76,9 @@ def topoloss_connectivity(pt_gen, max_length_percent=0.3,topk = 3):
     mask = means >= topk_means[-1]
     # 使用掩码设置其余元素为0
     means = means * mask
-    '''  
+    '''
+    
+    
 
     topoloss = torch.sum(torch.mul(torch.pow(lengths, 2), torch.pow(means, 0)))
 
@@ -85,6 +87,7 @@ def topoloss_connectivity(pt_gen, max_length_percent=0.3,topk = 3):
     disk = torch.max(disk, torch.zeros_like(disk)).sum()
 
     return topoloss #+ 1 * disk
+
 
 
 
@@ -113,9 +116,9 @@ def topoloss_wasserstein_based(pt_gen, pt_gt=[], H0=True, H1=True, max_length_pe
     else:
         i0 = torch.empty((0, 3), dtype=int)
     #计算H0
-    diag0_gen = torch.norm(pts[i0[:, (0, 1)]] - pts[i0[:, (0, 2)]], dim=-1)
+    diag0_gen = torch.norm(pt_gen[i0[:, (0, 1)]] - pt_gen[i0[:, (0, 2)]], dim=-1)
     #计算H1
-    diag1_gen = torch.norm(pts[i1[:, (0, 2)]] - pts[i1[:, (1, 3)]], dim=-1)
+    diag1_gen = torch.norm(pt_gen[i1[:, (0, 2)]] - pt_gen[i1[:, (1, 3)]], dim=-1)
 
 
     ###################################################################################################
